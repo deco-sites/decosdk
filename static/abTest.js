@@ -1,8 +1,7 @@
 
 const config = {
-    // get on analytics page
-    plausibleDomain: "seusite.deco.site",
-    decoDomain: "https://seusite.deco.site"
+  plausibleDomain: "seusite.deco.site",
+  decoDomain: "https://seusite.deco.site"
 }
 
 const plausibleAttributes = {
