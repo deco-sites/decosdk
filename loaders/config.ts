@@ -22,11 +22,10 @@ interface Props {
 type Returns = Props;
 
 export default function loader(
-  props: Props,   
+  props: Props,
   req: Request,
-  ctx: AppContext
+  ctx: AppContext,
 ): Returns {
-  
   Object.entries(allowCorsFor(req)).map(([name, value]) => {
     ctx.response.headers.set(name, value);
   });
