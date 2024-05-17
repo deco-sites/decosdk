@@ -1,5 +1,4 @@
-import { allowCorsFor } from "deco/mod.ts";
-import { AppContext } from "../apps/site.ts";
+import { allowCorsFor, LoaderContext } from "deco/mod.ts";
 import { Flag } from "deco/types.ts";
 import { AnalyticsEvent } from "apps/commerce/types.ts";
 
@@ -41,17 +40,12 @@ export interface Props {
    */
   variants: Code[];
   trackedElements?: TrackElement[];
+  plausibleDomain?: string;
 }
 
 const snippet = (result: Props) => {
-  const config = {
-    // get on analytics page
-    plausibleDomain: "seusite.deco.site",
-    decoDomain: "https://seusite.deco.site",
-  };
-
   const plausibleAttributes = {
-    "data-domain": config.plausibleDomain,
+    "data-domain": result.plausibleDomain || "",
     "data-api": "https://plausible.io/api/event",
     "src": "https://plausible.io/js/script.manual.hash.js",
     "defer": "true",
@@ -304,7 +298,7 @@ const snippet = (result: Props) => {
 const loader = (
   { name, variants, trackedElements }: Props,
   req: Request,
-  ctx: AppContext,
+  ctx: LoaderContext,
 ) => {
   Object.entries(allowCorsFor(req)).map(([name, value]) => {
     ctx.response.headers.set(name, value);
