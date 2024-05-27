@@ -304,9 +304,9 @@ const loader = (
     ctx.response.headers.set(name, value);
   });
 
-  const script = `(${snippet})(JSON.parse("${
+  const script = `(${snippet})(JSON.parse(${JSON.stringify(
     JSON.stringify({ name, variants, trackedElements })
-  }"));`;
+  )}));`;
 
   return new Response(script, {
     headers: {
